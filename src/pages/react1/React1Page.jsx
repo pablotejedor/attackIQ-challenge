@@ -5,7 +5,7 @@ export default function React1Page() {
      const passwordInput = useRef(null);
      const passwordConfirmInput = useRef(null);
 
-     const isFormValid = () => {
+     const validateForm = () => {
           const password = passwordInput.current?.value;
           const confirmPassword = passwordConfirmInput.current?.value;
 
@@ -57,7 +57,7 @@ export default function React1Page() {
                               type="password"
                               id="password"
                               ref={passwordInput}
-                              onChange={() => isFormValid()}
+                              onChange={() => validateForm()}
                               required
                          />
                     </div>
@@ -69,7 +69,7 @@ export default function React1Page() {
                               type="password"
                               id="confirmPassword"
                               ref={passwordConfirmInput}
-                              onChange={() => isFormValid()}
+                              onChange={() => validateForm()}
                               required
                          />
                     </div>
