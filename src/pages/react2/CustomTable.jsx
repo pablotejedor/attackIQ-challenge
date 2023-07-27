@@ -47,6 +47,13 @@ export default function CustomTable() {
      return (
           <>
                <TableContainer>
+                    <Button
+                         size="small"
+                         variant="outlined"
+                         onClick={() => navigate('create')}
+                    >
+                         New +
+                    </Button>
                     <Table>
                          <TableHead>
                               <TableRow>

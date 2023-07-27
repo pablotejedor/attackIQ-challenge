@@ -4,8 +4,7 @@ import HomePage from './pages/Home/HomePage';
 import React1Page from './pages/React1/React1Page';
 import React2Page from './pages/React2/React2Page';
 import VanillaPage from './pages/vanilla/VanillaPage';
-import { Container, ThemeProvider } from '@mui/material';
-import { blueGrey } from '@mui/material/colors';
+import { Stack, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import { TableContextProvider } from './context/tableContext';
 import EditForm from './pages/react2/EditForm';
@@ -14,13 +13,11 @@ function App() {
      return (
           <ThemeProvider theme={theme}>
                <TableContextProvider>
-                    <Container
-                         maxWidth={'100vw'}
-                         disableGutters
-                         sx={{
-                              backgroundColor: blueGrey[100],
-                              minHeight: '100vh',
-                         }}
+                    <Stack
+                         alignItems="center"
+                         justifyContent="center"
+                         sx={{ width: '100vw', height: '100vh' }}
+                         spacing={5}
                     >
                          <BrowserRouter>
                               <Routes>
@@ -46,12 +43,17 @@ function App() {
                                    />
                                    <Route
                                         exact
+                                        path="/react2/create"
+                                        element={<EditForm />}
+                                   />
+                                   <Route
+                                        exact
                                         path="/vanilla"
                                         element={<VanillaPage />}
                                    />
                               </Routes>
                          </BrowserRouter>
-                    </Container>
+                    </Stack>
                </TableContextProvider>
           </ThemeProvider>
      );

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
 import { Button, Stack } from '@mui/material';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -34,7 +34,11 @@ export default function EditForm() {
           },
      ];
 
-     const handleSubmit = (values) => {
+     const { pathname } = useLocation();
+
+     const isCreationForm = pathname === '/react2/create';
+
+     const handleSubmitEdition = (values) => {
           const arrayCopy = [...tableData];
 
           const index = arrayCopy.indexOf(rowToEdit);
@@ -45,6 +49,11 @@ export default function EditForm() {
           navigate('/react2');
      };
 
+     const handleSubmitCreation = (values) => {
+          setTableData((prev) => [values, ...prev]);
+          navigate('/react2');
+     };
+
      return (
           <Stack
                alignItems="center"
@@ -52,10 +61,24 @@ export default function EditForm() {
                sx={{ width: '100%', height: '100vh' }}
                spacing={5}
           >
-               <h3>EditForm</h3>
+               <h3>{isCreationForm ? 'Create' : 'Edit'} Form</h3>
                <Formik
-                    onSubmit={handleSubmit}
-                    initialValues={rowToEdit}
+                    onSubmit={
+                         isCreationForm
+                              ? handleSubmitCreation
+                              : handleSubmitEdition
+                    }
+                    initialValues={
+                         isCreationForm
+                              ? {
+                                     idn: '',
+                                     name: '',
+                                     middleName: '',
+                                     lastName: '',
+                                     gender: '',
+                                }
+                              : rowToEdit
+                    }
                     validate={(values) => {
                          const errors = {};
 
@@ -67,8 +90,16 @@ export default function EditForm() {
                               tableData.some(
                                    (row) =>
                                         row.idn === values.idn &&
-                                        values.idn !== rowToEdit.idn
-                              )
+                                        values.idn !== rowToEdit?.idn
+                              ) &&
+                              !isCreationForm
+                         ) {
+                              errors.idn = 'IDN must be unique';
+                         }
+
+                         if (
+                              tableData.some((row) => row.idn === values.idn) &&
+                              isCreationForm
                          ) {
                               errors.idn = 'IDN must be unique';
                          }
@@ -129,6 +160,9 @@ export default function EditForm() {
                                              id="gender"
                                              as="select"
                                         >
+                                             <option defaultValue>
+                                                  Select gender
+                                             </option>
                                              <option value={'Male'}>
                                                   Male
                                              </option>
@@ -151,7 +185,7 @@ export default function EditForm() {
                                         size="small"
                                         variant="outlined"
                                    >
-                                        Edit
+                                        {isCreationForm ? 'Create' : 'Edit'}
                                    </Button>
                               </Stack>
                          </Form>
