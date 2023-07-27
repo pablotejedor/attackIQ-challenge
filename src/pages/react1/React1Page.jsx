@@ -9,19 +9,25 @@ export default function React1Page() {
           const password = passwordInput.current?.value;
           const confirmPassword = passwordConfirmInput.current?.value;
 
+          const bannedPasswords = ['Password1234', '4tt4ck1q', 'contraseña1'];
+
           let errors = [];
 
           if (password?.length < 8 || password?.length > 32) {
                errors.push('Password must be between 8 and 32 characters.');
           }
 
-          const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+          const passwordRegex = /^(?=.*[ñA-Za-z])(?=.*\d)[ñA-Za-z\d]+$/;
           if (!password?.match(passwordRegex)) {
                errors.push('Password must contain both letters and numbers.');
           }
 
           if (password !== confirmPassword) {
                errors.push('Passwords do not match.');
+          }
+
+          if (bannedPasswords.includes(password)) {
+               errors.push('You cannot use this password');
           }
 
           setErrorMessages(errors);
