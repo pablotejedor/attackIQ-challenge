@@ -4,12 +4,34 @@ import TableContext from '../../context/tableContext';
 import { Button, Stack } from '@mui/material';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-export default function EditForm() {
+export default function StudentsForm() {
      const { tableData, setTableData } = useContext(TableContext);
+
      const { id } = useParams();
+
      const rowToEdit = tableData.find((row) => row.idn === parseInt(id, 10));
 
      const navigate = useNavigate();
+
+     const { pathname } = useLocation();
+
+     const isCreationForm = pathname === '/react2/create';
+
+     const handleSubmitEdition = (values) => {
+          const arrayCopy = [...tableData];
+
+          const index = arrayCopy.indexOf(rowToEdit);
+
+          arrayCopy[index] = values;
+
+          setTableData(arrayCopy);
+          navigate('/react2');
+     };
+
+     const handleSubmitCreation = (values) => {
+          setTableData((prev) => [values, ...prev]);
+          navigate('/react2');
+     };
 
      const fields = [
           {
@@ -33,26 +55,6 @@ export default function EditForm() {
                type: 'text',
           },
      ];
-
-     const { pathname } = useLocation();
-
-     const isCreationForm = pathname === '/react2/create';
-
-     const handleSubmitEdition = (values) => {
-          const arrayCopy = [...tableData];
-
-          const index = arrayCopy.indexOf(rowToEdit);
-
-          arrayCopy[index] = values;
-
-          setTableData(arrayCopy);
-          navigate('/react2');
-     };
-
-     const handleSubmitCreation = (values) => {
-          setTableData((prev) => [values, ...prev]);
-          navigate('/react2');
-     };
 
      return (
           <Stack

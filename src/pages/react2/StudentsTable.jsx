@@ -12,7 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
 
-export default function CustomTable() {
+export default function StudentsTable() {
      const { tableData, setTableData } = useContext(TableContext);
      const [page, setPage] = useState(0);
      const [rowsPerPage, setRowsPerPage] = useState(5);

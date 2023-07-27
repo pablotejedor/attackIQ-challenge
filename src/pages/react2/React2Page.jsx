@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import CustomTable from './CustomTable';
+import StudentsTable from './StudentsTable';
 
 export default function React2Page() {
      return (
@@ -9,7 +9,7 @@ export default function React2Page() {
                sx={{ width: '80%', height: '100vh' }}
           >
                <h1>Table</h1>
-               <CustomTable />
+               <StudentsTable />
           </Stack>
      );
 }

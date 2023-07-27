@@ -7,7 +7,7 @@ import VanillaPage from './pages/vanilla/VanillaPage';
 import { Stack, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import { TableContextProvider } from './context/tableContext';
-import EditForm from './pages/react2/EditForm';
+import StudentsForm from './pages/react2/StudentsForm';
 
 function App() {
      return (
@@ -39,12 +39,12 @@ function App() {
                                    <Route
                                         exact
                                         path="/react2/edit/:id"
-                                        element={<EditForm />}
+                                        element={<StudentsForm />}
                                    />
                                    <Route
                                         exact
                                         path="/react2/create"
-                                        element={<EditForm />}
+                                        element={<StudentsForm />}
                                    />
                                    <Route
                                         exact
