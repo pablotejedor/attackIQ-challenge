@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
      Table,
      TableBody,
@@ -10,17 +10,10 @@ import {
      Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { mockedData } from '../../mock/mockedData';
-
-const columns = [
-     { id: 'idn', label: 'IDN' },
-     { id: 'fullName', label: 'Full name' },
-     { id: 'gender', label: 'Gender' },
-     { id: 'actions', label: 'Actions' },
-];
+import TableContext from '../../context/tableContext';
 
 export default function CustomTable() {
-     const [data, setData] = useState(mockedData);
+     const { tableData, setTableData } = useContext(TableContext);
      const [page, setPage] = useState(0);
      const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -33,16 +26,23 @@ export default function CustomTable() {
           setPage(0);
      };
 
-     const slicedData = data.slice(
+     const handleDelete = (id) => {
+          setTableData(tableData.filter((item) => item.idn !== id));
+     };
+
+     const slicedData = tableData.slice(
           page * rowsPerPage,
           page * rowsPerPage + rowsPerPage
      );
 
-     const handleDelete = (id) => {
-          setData(data.filter((item) => item.idn !== id));
-     };
-
      const navigate = useNavigate();
+
+     const columns = [
+          { id: 'idn', label: 'IDN' },
+          { id: 'fullName', label: 'Full name' },
+          { id: 'gender', label: 'Gender' },
+          { id: 'actions', label: 'Actions' },
+     ];
 
      return (
           <>
@@ -98,7 +98,7 @@ export default function CustomTable() {
                <TablePagination
                     rowsPerPageOptions={[5, 10]}
                     component="div"
-                    count={data.length}
+                    count={tableData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
