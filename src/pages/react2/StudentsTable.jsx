@@ -8,10 +8,12 @@ import {
      TableRow,
      TablePagination,
      Button,
+     Stack,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
 import useSort from '../../hooks/useSort';
+import Search from './Search';
 
 export default function StudentsTable() {
      const { tableData, setTableData } = useContext(TableContext);
@@ -77,13 +79,16 @@ export default function StudentsTable() {
      return (
           <>
                <TableContainer>
-                    <Button
-                         size="small"
-                         variant="outlined"
-                         onClick={() => navigate('create')}
-                    >
-                         New +
-                    </Button>
+                    <Stack direction="row" spacing={4}>
+                         <Button
+                              size="small"
+                              variant="outlined"
+                              onClick={() => navigate('create')}
+                         >
+                              New +
+                         </Button>
+                         <Search />
+                    </Stack>
                     <Table>
                          <TableHead>
                               <TableRow>
