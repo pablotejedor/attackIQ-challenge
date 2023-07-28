@@ -11,11 +11,14 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
+import useSort from '../../hooks/useSort';
 
 export default function StudentsTable() {
      const { tableData, setTableData } = useContext(TableContext);
      const [page, setPage] = useState(0);
      const [rowsPerPage, setRowsPerPage] = useState(5);
+     const [sortBy, setSortBy] = useState(null);
+     const [sortType, setSortType] = useState(null);
 
      const handleChangePage = (_, page) => {
           setPage(page);
@@ -38,11 +41,38 @@ export default function StudentsTable() {
      const navigate = useNavigate();
 
      const columns = [
-          { id: 'idn', label: 'IDN' },
-          { id: 'fullName', label: 'Full name' },
-          { id: 'gender', label: 'Gender' },
-          { id: 'actions', label: 'Actions' },
+          { id: 'idn', label: 'IDN', isSortable: true, sortName: 'idn' },
+          {
+               id: 'fullName',
+               label: 'Full name',
+               isSortable: true,
+               sortName: 'name',
+          },
+          {
+               id: 'gender',
+               label: 'Gender',
+               isSortable: true,
+               sortName: 'gender',
+          },
+          {
+               id: 'actions',
+               label: 'Actions',
+               isSortable: false,
+               sortName: null,
+          },
      ];
+
+     useSort(sortBy, sortType);
+
+     const handleClickSort = (column) => {
+          setSortBy(column);
+
+          if (sortType === 'asc') {
+               setSortType('desc');
+          } else {
+               setSortType('asc');
+          }
+     };
 
      return (
           <>
@@ -58,7 +88,21 @@ export default function StudentsTable() {
                          <TableHead>
                               <TableRow>
                                    {columns.map((column) => (
-                                        <TableCell key={column.id}>
+                                        <TableCell
+                                             sx={{
+                                                  cursor:
+                                                       column.isSortable &&
+                                                       'pointer',
+                                             }}
+                                             key={column.id}
+                                             onClick={() => {
+                                                  if (column.isSortable) {
+                                                       handleClickSort(
+                                                            column.sortName
+                                                       );
+                                                  }
+                                             }}
+                                        >
                                              {column.label}
                                         </TableCell>
                                    ))}
