@@ -1,12 +1,12 @@
-import { Button, Modal, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useContext, useState } from 'react';
 import TableContext from '../../context/tableContext';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import { useNavigate } from 'react-router-dom';
+import SearchModal from './SearchModal';
 
 export default function Search() {
-     const { tableData, setTableData } = useContext(TableContext);
+     const { tableData } = useContext(TableContext);
      const [searchResults, setSearchResults] = useState([]);
 
      const [open, setOpen] = useState(false);
@@ -33,14 +33,13 @@ export default function Search() {
           handleOpen();
      };
 
-     const handleDelete = (id) => {
-          setTableData(tableData.filter((item) => item.idn !== id));
-     };
-
-     const navigate = useNavigate();
-
      return (
           <>
+               <SearchModal
+                    open={open}
+                    handleClose={handleClose}
+                    searchResults={searchResults}
+               />
                <Formik
                     initialValues={{
                          searchTerm: '',
@@ -104,73 +103,6 @@ export default function Search() {
                          </Form>
                     )}
                </Formik>
-               <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-               >
-                    <Stack
-                         alignItems={'start'}
-                         justifyContent={'center'}
-                         sx={{
-                              position: 'absolute',
-                              top: '50%',
-                              left: '50%',
-                              transform: 'translate(-50%, -50%)',
-                              width: 400,
-                              bgcolor: '#fff',
-                              border: '2px solid #000',
-                              boxShadow: 24,
-                              p: 4,
-                         }}
-                    >
-                         {searchResults.length > 0 ? (
-                              searchResults.map((result) => (
-                                   <Stack
-                                        direction={'row'}
-                                        spacing={4}
-                                        alignItems={'center'}
-                                        justifyContent={'space-between'}
-                                        width={'100%'}
-                                        sx={{ borderBottom: '1px solid #000' }}
-                                   >
-                                        <p>{result.idn}</p>
-                                        <p>
-                                             {result.name} {result.middleName}{' '}
-                                             {result.lastName}
-                                        </p>
-
-                                        <Stack direction={'row'} spacing={1}>
-                                             <Button
-                                                  size="small"
-                                                  variant="outlined"
-                                                  onClick={() =>
-                                                       navigate(
-                                                            `edit/${result.idn}`
-                                                       )
-                                                  }
-                                             >
-                                                  Edit
-                                             </Button>
-                                             <Button
-                                                  size="small"
-                                                  variant="outlined"
-                                                  onClick={() => {
-                                                       handleDelete(result.idn);
-                                                       handleClose();
-                                                  }}
-                                             >
-                                                  Delete
-                                             </Button>
-                                        </Stack>
-                                   </Stack>
-                              ))
-                         ) : (
-                              <h3>No search results</h3>
-                         )}
-                    </Stack>
-               </Modal>
           </>
      );
 }
