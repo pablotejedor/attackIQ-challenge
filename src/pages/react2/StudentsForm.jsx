@@ -7,15 +7,14 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 export default function StudentsForm() {
      const { tableData, setTableData } = useContext(TableContext);
 
+     const { pathname } = useLocation();
+     const isCreationForm = pathname === '/react2/create';
+
      const { id } = useParams();
 
      const rowToEdit = tableData.find((row) => row.idn === parseInt(id, 10));
 
      const navigate = useNavigate();
-
-     const { pathname } = useLocation();
-
-     const isCreationForm = pathname === '/react2/create';
 
      const handleSubmitEdition = (values) => {
           const arrayCopy = [...tableData];
@@ -63,7 +62,7 @@ export default function StudentsForm() {
                sx={{ width: '100%', height: '100vh' }}
                spacing={5}
           >
-               <h3>{isCreationForm ? 'Create' : 'Edit'} Form</h3>
+               <h1>{isCreationForm ? 'Create' : 'Edit'} Form</h1>
                <Formik
                     onSubmit={
                          isCreationForm
