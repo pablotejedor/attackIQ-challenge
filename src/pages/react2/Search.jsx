@@ -61,39 +61,35 @@ export default function Search() {
                                    alignItems={'center'}
                                    spacing={2}
                               >
-                                   <Stack>
-                                        <Field
-                                             className="input-custom"
-                                             id="search"
-                                             name="searchTerm"
-                                             placeholder={
-                                                  errors.searchTerm &&
-                                                  touched.searchTerm
-                                                       ? errors.searchTerm
-                                                       : 'Write a search term and hit search button'
-                                             }
-                                        />
-                                   </Stack>
-                                   <Stack>
-                                        <Field
-                                             className="select-custom"
-                                             id="searchBy"
-                                             as="select"
-                                             name="searchBy"
-                                        >
-                                             <option value="idn">IDN</option>
-                                             <option value="name">Name</option>
-                                             <option value="middleName">
-                                                  Middle name
-                                             </option>
-                                             <option value="lastName">
-                                                  Last name
-                                             </option>
-                                             <option value="gender">
-                                                  Gender
-                                             </option>
-                                        </Field>
-                                   </Stack>
+                                   <Field
+                                        className="input-custom"
+                                        id="search"
+                                        name="searchTerm"
+                                        placeholder={
+                                             errors.searchTerm &&
+                                             touched.searchTerm
+                                                  ? errors.searchTerm
+                                                  : 'Write a search term and hit search button'
+                                        }
+                                   />
+
+                                   <Field
+                                        className="select-custom"
+                                        id="searchBy"
+                                        as="select"
+                                        name="searchBy"
+                                   >
+                                        <option value="idn">IDN</option>
+                                        <option value="name">Name</option>
+                                        <option value="middleName">
+                                             Middle name
+                                        </option>
+                                        <option value="lastName">
+                                             Last name
+                                        </option>
+                                        <option value="gender">Gender</option>
+                                   </Field>
+
                                    <Button
                                         size="small"
                                         variant="outlined"
