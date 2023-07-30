@@ -10,6 +10,33 @@ import { TableContextProvider } from './context/tableContext';
 import StudentsForm from './pages/react2/StudentsForm';
 
 function App() {
+     const routes = [
+          {
+               path: '/',
+               element: <HomePage />,
+          },
+          {
+               path: '/react1',
+               element: <React1Page />,
+          },
+          {
+               path: '/react2',
+               element: <React2Page />,
+          },
+          {
+               path: '/react2/edit/:id',
+               element: <StudentsForm />,
+          },
+          {
+               path: '/react2/create',
+               element: <StudentsForm />,
+          },
+          {
+               path: '/vanilla',
+               element: <VanillaPage />,
+          },
+     ];
+
      return (
           <ThemeProvider theme={theme}>
                <TableContextProvider>
@@ -21,36 +48,14 @@ function App() {
                     >
                          <BrowserRouter>
                               <Routes>
-                                   <Route
-                                        exact
-                                        path="/"
-                                        element={<HomePage />}
-                                   />
-                                   <Route
-                                        exact
-                                        path="/react1"
-                                        element={<React1Page />}
-                                   />
-                                   <Route
-                                        exact
-                                        path="/react2"
-                                        element={<React2Page />}
-                                   />
-                                   <Route
-                                        exact
-                                        path="/react2/edit/:id"
-                                        element={<StudentsForm />}
-                                   />
-                                   <Route
-                                        exact
-                                        path="/react2/create"
-                                        element={<StudentsForm />}
-                                   />
-                                   <Route
-                                        exact
-                                        path="/vanilla"
-                                        element={<VanillaPage />}
-                                   />
+                                   {routes.map(({ path, element }) => (
+                                        <Route
+                                             exact
+                                             path={path}
+                                             element={element}
+                                             key={path}
+                                        />
+                                   ))}
                               </Routes>
                          </BrowserRouter>
                     </Stack>
