@@ -2,11 +2,11 @@ import { useContext, useEffect } from 'react';
 import TableContext from '../context/tableContext';
 
 export default function useSort(sortBy, sortType) {
-     const { tableData, setTableData } = useContext(TableContext);
+     const { setTableData } = useContext(TableContext);
 
      const sortAsc = () => {
-          setTableData((prevData) =>
-               [...prevData].sort((a, b) => {
+          setTableData((prev) =>
+               [...prev].sort((a, b) => {
                     if (a[sortBy] > b[sortBy]) {
                          return 1;
                     }
@@ -20,8 +20,8 @@ export default function useSort(sortBy, sortType) {
      };
 
      const sortDesc = () => {
-          setTableData((prevData) =>
-               [...prevData].sort((a, b) => {
+          setTableData((prev) =>
+               [...prev].sort((a, b) => {
                     if (a[sortBy] < b[sortBy]) {
                          return 1;
                     }

@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
 import useSort from '../../hooks/useSort';
 import Search from './Search';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function StudentsTable() {
      const { tableData, setTableData } = useContext(TableContext);
@@ -21,6 +23,7 @@ export default function StudentsTable() {
      const [rowsPerPage, setRowsPerPage] = useState(5);
      const [sortBy, setSortBy] = useState(null);
      const [sortType, setSortType] = useState(null);
+     const navigate = useNavigate();
 
      const handleChangePage = (_, page) => {
           setPage(page);
@@ -40,7 +43,29 @@ export default function StudentsTable() {
           page * rowsPerPage + rowsPerPage
      );
 
-     const navigate = useNavigate();
+     useSort(sortBy, sortType);
+
+     const handleClickSort = (column) => {
+          setSortBy(column);
+
+          if (sortType === 'asc') {
+               setSortType('desc');
+          } else {
+               setSortType('asc');
+          }
+     };
+
+     const getIcon = (column) => {
+          if (sortBy === column && sortType === 'asc') {
+               return <KeyboardArrowUpIcon />;
+          }
+
+          if (sortBy === column && sortType === 'desc') {
+               return <KeyboardArrowDownIcon />;
+          }
+
+          return null;
+     };
 
      const columns = [
           { id: 'idn', label: 'IDN', isSortable: true, sortName: 'idn' },
@@ -63,18 +88,6 @@ export default function StudentsTable() {
                sortName: null,
           },
      ];
-
-     useSort(sortBy, sortType);
-
-     const handleClickSort = (column) => {
-          setSortBy(column);
-
-          if (sortType === 'asc') {
-               setSortType('desc');
-          } else {
-               setSortType('asc');
-          }
-     };
 
      return (
           <>
@@ -109,7 +122,14 @@ export default function StudentsTable() {
                                                   }
                                              }}
                                         >
-                                             {column.label}
+                                             <Stack
+                                                  direction={'row'}
+                                                  alignItems={'center'}
+                                                  justifyContent={'start'}
+                                             >
+                                                  {column.label}
+                                                  {getIcon(column.sortName)}
+                                             </Stack>
                                         </TableCell>
                                    ))}
                               </TableRow>
