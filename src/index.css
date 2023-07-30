@@ -11,6 +11,16 @@ body {
      width: 100%;
 }
 
+.input-container {
+     display: flex;
+     flex-direction: column;
+     margin: 2rem 0;
+}
+
+.input-container label {
+     margin: 0.5rem 0;
+}
+
 .form-buttons-container {
      display: flex;
      padding: 3rem;
@@ -28,4 +38,28 @@ body {
 
 .error-message {
      color: red;
+}
+
+.button-custom,
+.input-custom {
+     border: 1px solid rgba(103, 58, 183, 0.5);
+     background-color: #fff;
+     color: #673ab7;
+     padding: 6px 9px;
+     border-radius: 4px;
+     font-size: 13px;
+}
+
+.button-custom:disabled {
+     cursor: not-allowed;
+     border: 1px solid rgb(103, 58, 183, 0.3);
+     color: rgb(103, 58, 183, 0.3);
+}
+
+.input-custom::placeholder {
+     color: rgba(103, 58, 183, 0.4);
+}
+
+.input-custom:focus {
+     outline: 1px solid #673ab7;
 }

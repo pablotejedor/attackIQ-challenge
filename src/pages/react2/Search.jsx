@@ -63,6 +63,7 @@ export default function Search() {
                               >
                                    <Stack>
                                         <Field
+                                             className="input-custom"
                                              id="search"
                                              name="searchTerm"
                                              placeholder={
@@ -75,6 +76,7 @@ export default function Search() {
                                    </Stack>
                                    <Stack>
                                         <Field
+                                             className="input-custom"
                                              id="searchBy"
                                              as="select"
                                              name="searchBy"

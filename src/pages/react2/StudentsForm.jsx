@@ -139,6 +139,7 @@ export default function StudentsForm() {
                                                   {field.label}
                                              </label>
                                              <Field
+                                                  className="input-custom"
                                                   name={field.name}
                                                   type={field.type}
                                                   id={field.name}
@@ -158,6 +159,7 @@ export default function StudentsForm() {
                                    >
                                         <label htmlFor={'gender'}>Gender</label>
                                         <Field
+                                             className="input-custom"
                                              name="gender"
                                              id="gender"
                                              as="select"

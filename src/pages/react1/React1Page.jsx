@@ -51,9 +51,10 @@ export default function React1Page() {
           <div className="form-container">
                <h2>Change Password Form</h2>
                <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className="input-container">
                          <label htmlFor="password">New password:</label>
                          <input
+                              className="input-custom"
                               type="password"
                               id="password"
                               ref={passwordInput}
@@ -61,11 +62,12 @@ export default function React1Page() {
                               required
                          />
                     </div>
-                    <div>
+                    <div className="input-container">
                          <label htmlFor="confirmPassword">
                               New password confirmation:
                          </label>
                          <input
+                              className="input-custom"
                               type="password"
                               id="confirmPassword"
                               ref={passwordConfirmInput}
@@ -85,16 +87,18 @@ export default function React1Page() {
 
                     <div className="form-buttons-container">
                          <button
+                              className="button-custom"
                               type="click"
                               onClick={() => handleClearFields()}
                          >
-                              Clear fields
+                              CLEAR FIELDS
                          </button>
                          <button
+                              className="button-custom"
                               type="submit"
                               disabled={errorMessages.length > 0}
                          >
-                              Change Password
+                              CHANGE PASSWORD
                          </button>
                     </div>
                </form>
