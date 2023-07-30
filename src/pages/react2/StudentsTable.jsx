@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo } from 'react';
 import {
      Table,
      TableBody,
@@ -38,9 +38,13 @@ export default function StudentsTable() {
           setTableData(tableData.filter((item) => item.idn !== id));
      };
 
-     const slicedData = tableData.slice(
-          page * rowsPerPage,
-          page * rowsPerPage + rowsPerPage
+     const slicedData = useMemo(
+          () =>
+               tableData.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+               ),
+          [tableData, page, rowsPerPage]
      );
 
      useSort(sortBy, sortType);
