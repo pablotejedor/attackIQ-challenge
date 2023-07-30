@@ -79,11 +79,12 @@ export default function StudentsTable() {
      return (
           <>
                <TableContainer>
-                    <Stack direction="row" alignItems={'center'} spacing={10}>
+                    <Stack direction="row" alignItems={'center'} spacing={4}>
                          <Button
                               size="small"
                               variant="outlined"
                               onClick={() => navigate('create')}
+                              sx={{ height: '33px' }}
                          >
                               Add new student +
                          </Button>

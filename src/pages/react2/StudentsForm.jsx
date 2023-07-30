@@ -7,6 +7,12 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 export default function StudentsForm() {
      const { tableData, setTableData } = useContext(TableContext);
 
+     // First, I need to check if we're going to create or edit an student.
+     // I choose this approach in order to avoid boilerplate. I did't want
+     // to have two different form components, with almost the same code.
+     // If you think this is a mistake, please reach me out and I will
+     // try to find another approach ASAP.
+
      const { pathname } = useLocation();
      const isCreationForm = pathname === '/react2/create';
 

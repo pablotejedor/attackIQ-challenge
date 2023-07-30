@@ -76,7 +76,7 @@ export default function Search() {
                                    </Stack>
                                    <Stack>
                                         <Field
-                                             className="input-custom"
+                                             className="select-custom"
                                              id="searchBy"
                                              as="select"
                                              name="searchBy"
@@ -98,6 +98,7 @@ export default function Search() {
                                         size="small"
                                         variant="outlined"
                                         type="submit"
+                                        sx={{ height: '33px' }}
                                    >
                                         Search
                                    </Button>
