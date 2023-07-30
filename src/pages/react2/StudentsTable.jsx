@@ -4,7 +4,6 @@ import {
      TableBody,
      TableCell,
      TableContainer,
-     TableHead,
      TableRow,
      TablePagination,
      Button,
@@ -12,17 +11,14 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
-import useSort from '../../hooks/useSort';
 import Search from './Search';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import TableHeader from './TableHeader';
 
 export default function StudentsTable() {
      const { tableData, setTableData } = useContext(TableContext);
      const [page, setPage] = useState(0);
      const [rowsPerPage, setRowsPerPage] = useState(5);
-     const [sortBy, setSortBy] = useState(null);
-     const [sortType, setSortType] = useState(null);
+
      const navigate = useNavigate();
 
      const handleChangePage = (_, page) => {
@@ -47,52 +43,6 @@ export default function StudentsTable() {
           [tableData, page, rowsPerPage]
      );
 
-     useSort(sortBy, sortType);
-
-     const handleClickSort = (column) => {
-          setSortBy(column);
-
-          if (sortType === 'asc') {
-               setSortType('desc');
-          } else {
-               setSortType('asc');
-          }
-     };
-
-     const getIcon = (column) => {
-          if (sortBy === column && sortType === 'asc') {
-               return <KeyboardArrowUpIcon />;
-          }
-
-          if (sortBy === column && sortType === 'desc') {
-               return <KeyboardArrowDownIcon />;
-          }
-
-          return null;
-     };
-
-     const columns = [
-          { id: 'idn', label: 'IDN', isSortable: true, sortName: 'idn' },
-          {
-               id: 'fullName',
-               label: 'Full name',
-               isSortable: true,
-               sortName: 'name',
-          },
-          {
-               id: 'gender',
-               label: 'Gender',
-               isSortable: true,
-               sortName: 'gender',
-          },
-          {
-               id: 'actions',
-               label: 'Actions',
-               isSortable: false,
-               sortName: null,
-          },
-     ];
-
      return (
           <>
                <TableContainer>
@@ -108,36 +58,8 @@ export default function StudentsTable() {
                          <Search />
                     </Stack>
                     <Table>
-                         <TableHead>
-                              <TableRow>
-                                   {columns.map((column) => (
-                                        <TableCell
-                                             sx={{
-                                                  cursor:
-                                                       column.isSortable &&
-                                                       'pointer',
-                                             }}
-                                             key={column.id}
-                                             onClick={() => {
-                                                  if (column.isSortable) {
-                                                       handleClickSort(
-                                                            column.sortName
-                                                       );
-                                                  }
-                                             }}
-                                        >
-                                             <Stack
-                                                  direction={'row'}
-                                                  alignItems={'center'}
-                                                  justifyContent={'start'}
-                                             >
-                                                  {column.label}
-                                                  {getIcon(column.sortName)}
-                                             </Stack>
-                                        </TableCell>
-                                   ))}
-                              </TableRow>
-                         </TableHead>
+                         <TableHeader />
+
                          <TableBody>
                               {slicedData.map((person) => (
                                    <TableRow
