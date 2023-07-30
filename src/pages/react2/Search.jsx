@@ -94,7 +94,7 @@ export default function Search() {
                                         size="small"
                                         variant="outlined"
                                         type="submit"
-                                        sx={{ height: '33px' }}
+                                        sx={{ height: '30px' }}
                                    >
                                         Search
                                    </Button>

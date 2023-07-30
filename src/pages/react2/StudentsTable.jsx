@@ -97,7 +97,7 @@ export default function StudentsTable() {
                               size="small"
                               variant="outlined"
                               onClick={() => navigate('create')}
-                              sx={{ height: '33px' }}
+                              sx={{ height: '30px' }}
                          >
                               Add new student +
                          </Button>

@@ -48,12 +48,12 @@ body {
      background-color: #fff;
      color: #673ab7;
      border-radius: 4px;
-     font-size: 13px;
-     height: 29px;
+     box-sizing: border-box;
+     height: 30px;
+     cursor: pointer;
 }
 
 .select-custom {
-     height: 33px;
      cursor: pointer;
 }
 
