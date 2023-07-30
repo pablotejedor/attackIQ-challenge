@@ -62,7 +62,7 @@ export default function Search() {
                                    spacing={2}
                               >
                                    <Field
-                                        className="input-custom"
+                                        className="input-custom search"
                                         id="search"
                                         name="searchTerm"
                                         placeholder={

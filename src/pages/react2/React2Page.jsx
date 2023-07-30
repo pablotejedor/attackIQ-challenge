@@ -8,7 +8,7 @@ export default function React2Page() {
                justifyContent="center"
                sx={{ width: '80%', height: '100vh' }}
           >
-               <h1>Table</h1>
+               <h1>Students Table</h1>
                <StudentsTable />
           </Stack>
      );

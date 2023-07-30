@@ -70,3 +70,8 @@ body {
 .input-custom:focus {
      outline: 1px solid #673ab7;
 }
+
+.search {
+     width: 300px;
+     padding: 0 0.5rem;
+}

@@ -23,24 +23,21 @@ export default function TableHeader() {
      };
 
      const columns = [
-          { id: 'idn', label: 'IDN', isSortable: true, sortName: 'idn' },
+          { label: 'IDN', isSortable: true, id: 'idn' },
           {
-               id: 'fullName',
                label: 'Full name',
                isSortable: true,
-               sortName: 'name',
+               id: 'name',
           },
           {
-               id: 'gender',
                label: 'Gender',
                isSortable: true,
-               sortName: 'gender',
+               id: 'gender',
           },
           {
-               id: 'actions',
                label: 'Actions',
                isSortable: false,
-               sortName: null,
+               id: null,
           },
      ];
 
@@ -65,7 +62,7 @@ export default function TableHeader() {
                               key={column.id}
                               onClick={() => {
                                    if (column.isSortable) {
-                                        handleClickSort(column.sortName);
+                                        handleClickSort(column.id);
                                    }
                               }}
                          >
@@ -75,7 +72,7 @@ export default function TableHeader() {
                                    justifyContent={'start'}
                               >
                                    {column.label}
-                                   {getIcon(column.sortName)}
+                                   {getIcon(column.id)}
                               </Stack>
                          </TableCell>
                     ))}
