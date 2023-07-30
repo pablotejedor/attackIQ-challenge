@@ -1,13 +1,13 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/Home/HomePage';
-import React1Page from './pages/React1/React1Page';
-import React2Page from './pages/React2/React2Page';
+import HomePage from './pages/home/HomePage';
+import React1Page from './pages/react1/React1Page';
+import React2Page from './pages/react2/React2Page';
 import VanillaPage from './pages/vanilla/VanillaPage';
+import StudentsForm from './pages/react2/StudentsForm';
 import { Stack, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import { TableContextProvider } from './context/tableContext';
-import StudentsForm from './pages/react2/StudentsForm';
 
 function App() {
      const routes = [
