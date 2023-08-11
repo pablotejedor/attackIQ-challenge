@@ -11,7 +11,7 @@ export default function React1Page() {
 
           const bannedPasswords = ['Password1234', '4tt4ck1q', 'contraseña1'];
 
-          let errors = [];
+          const errors = [];
 
           if (password?.length < 8 || password?.length > 32) {
                errors.push('Password must be between 8 and 32 characters.');
@@ -31,11 +31,6 @@ export default function React1Page() {
           }
 
           setErrorMessages(errors);
-     };
-
-     const handleClearFields = () => {
-          passwordInput.current.value = '';
-          passwordConfirmInput.current.value = '';
      };
 
      const handleSubmit = (event) => {
@@ -86,17 +81,17 @@ export default function React1Page() {
                     )}
 
                     <div className="form-buttons-container">
-                         <button
-                              className="button-custom"
-                              type="click"
-                              onClick={() => handleClearFields()}
-                         >
+                         <button className="button-custom" type="reset">
                               CLEAR FIELDS
                          </button>
                          <button
                               className="button-custom"
                               type="submit"
-                              disabled={errorMessages.length > 0}
+                              disabled={
+                                   errorMessages.length > 0 ||
+                                   !passwordInput.current?.value ||
+                                   !passwordConfirmInput.current?.value
+                              }
                          >
                               CHANGE PASSWORD
                          </button>
