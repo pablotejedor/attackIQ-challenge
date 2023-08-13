@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useContext, useState } from 'react';
 import TableContext from '../../context/tableContext';
@@ -58,37 +58,51 @@ export default function Search() {
                          <Form>
                               <Stack
                                    direction="row"
-                                   alignItems={'center'}
+                                   alignItems={'flex-end'}
                                    spacing={2}
                               >
-                                   <Field
-                                        className="input-custom search"
-                                        id="search"
-                                        name="searchTerm"
-                                        placeholder={
-                                             errors.searchTerm &&
-                                             touched.searchTerm
-                                                  ? errors.searchTerm
-                                                  : 'Write a search term and hit search button'
-                                        }
-                                   />
+                                   <Stack spacing={1}>
+                                        <label htmlFor="search">
+                                             Search term:
+                                        </label>
+                                        <Field
+                                             className="input-custom search"
+                                             id="search"
+                                             name="searchTerm"
+                                             placeholder={
+                                                  errors.searchTerm &&
+                                                  touched.searchTerm
+                                                       ? errors.searchTerm
+                                                       : 'Write a search term and hit search button'
+                                             }
+                                        />
+                                   </Stack>
 
-                                   <Field
-                                        className="select-custom"
-                                        id="searchBy"
-                                        as="select"
-                                        name="searchBy"
-                                   >
-                                        <option value="idn">IDN</option>
-                                        <option value="name">Name</option>
-                                        <option value="middleName">
-                                             Middle name
-                                        </option>
-                                        <option value="lastName">
-                                             Last name
-                                        </option>
-                                        <option value="gender">Gender</option>
-                                   </Field>
+                                   <Stack spacing={1}>
+                                        <label htmlFor="searchBy">
+                                             Search by:
+                                        </label>
+                                        <Field
+                                             className="select-custom"
+                                             id="searchBy"
+                                             as="select"
+                                             name="searchBy"
+                                        >
+                                             <option value="idn">IDN</option>
+                                             <option value="name">
+                                                  First name
+                                             </option>
+                                             <option value="middleName">
+                                                  Middle name
+                                             </option>
+                                             <option value="lastName">
+                                                  Last name
+                                             </option>
+                                             <option value="gender">
+                                                  Gender
+                                             </option>
+                                        </Field>
+                                   </Stack>
 
                                    <Button
                                         size="small"

@@ -7,7 +7,7 @@ export default function TableAssets() {
      const navigate = useNavigate();
 
      return (
-          <Stack direction="row" alignItems={'center'} spacing={4}>
+          <Stack direction="row" alignItems={'flex-end'} spacing={4}>
                <Button
                     size="small"
                     variant="outlined"
