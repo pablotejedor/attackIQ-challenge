@@ -1,13 +1,12 @@
 import { useState, useContext, useMemo } from 'react';
 import { Table, TableContainer, TablePagination } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import TableContext from '../../context/tableContext';
 import TableHeader from './TableHeader';
 import TableRows from './TableRows';
 import TableAssets from './TableAssets';
 
 export default function StudentsTable() {
-     const { tableData } = useContext(TableContext);
+     const { tableData, searchResults } = useContext(TableContext);
      const [page, setPage] = useState(0);
      const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -22,16 +21,16 @@ export default function StudentsTable() {
 
      const slicedData = useMemo(
           () =>
-               tableData.slice(
+               searchResults.slice(
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                ),
-          [tableData, page, rowsPerPage]
+          [tableData, page, rowsPerPage, searchResults]
      );
 
      return (
           <TableContainer>
-               <TableAssets />
+               <TableAssets setPage={setPage} />
 
                <Table>
                     <TableHeader />
@@ -41,7 +40,7 @@ export default function StudentsTable() {
                <TablePagination
                     rowsPerPageOptions={[5, 10]}
                     component="div"
-                    count={tableData.length}
+                    count={searchResults.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

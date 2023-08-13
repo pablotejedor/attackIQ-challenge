@@ -1,121 +1,35 @@
-import { Button, Stack, Typography } from '@mui/material';
-import { Field, Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import TableContext from '../../context/tableContext';
-import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import SearchModal from './SearchModal';
+import useDebounce from '../../hooks/useDebounce';
 
 export default function Search() {
-     const { tableData } = useContext(TableContext);
-     const [searchResults, setSearchResults] = useState([]);
+     const { tableData, setSearchResults } = useContext(TableContext);
 
-     const [open, setOpen] = useState(false);
-     const handleOpen = () => setOpen(true);
-     const handleClose = () => setOpen(false);
+     const handleChange = (searchTerm) => {
+          if (!searchTerm) return setSearchResults(tableData);
 
-     const handleSubmit = ({ searchTerm, searchBy }) => {
-          const trimmedSearchTerm = searchTerm.trim();
-          const term =
-               searchBy === 'idn'
-                    ? parseInt(trimmedSearchTerm, 10)
-                    : capitalizeFirstLetter(trimmedSearchTerm);
+          const term = searchTerm.trim().toLowerCase();
 
-          typeof term === 'number'
-               ? setSearchResults(
-                      tableData.filter((person) => person[searchBy] === term)
-                 )
-               : setSearchResults(
-                      tableData.filter((person) =>
-                           person[searchBy].includes(term)
-                      )
-                 );
+          setSearchResults(
+               tableData.filter((person) => {
+                    const fullName =
+                         `${person.idn} ${person.name} ${person.middleName} ${person.lastName} ${person.gender}`.toLowerCase();
 
-          handleOpen();
+                    return fullName.includes(term);
+               })
+          );
      };
 
+     const debouncer = useDebounce();
+
      return (
-          <>
-               <SearchModal
-                    open={open}
-                    handleClose={handleClose}
-                    searchResults={searchResults}
-               />
-               <Formik
-                    initialValues={{
-                         searchTerm: '',
-                         searchBy: 'name',
-                    }}
-                    validate={(values) => {
-                         const errors = {};
-                         if (!values.searchTerm) {
-                              errors.searchTerm = 'Search term cannot be empty';
-                         }
-                         return errors;
-                    }}
-                    onSubmit={handleSubmit}
-               >
-                    {({ errors, touched }) => (
-                         <Form>
-                              <Stack
-                                   direction="row"
-                                   alignItems={'flex-end'}
-                                   spacing={2}
-                              >
-                                   <Stack spacing={1}>
-                                        <label htmlFor="search">
-                                             Search term:
-                                        </label>
-                                        <Field
-                                             className="input-custom search"
-                                             id="search"
-                                             name="searchTerm"
-                                             placeholder={
-                                                  errors.searchTerm &&
-                                                  touched.searchTerm
-                                                       ? errors.searchTerm
-                                                       : 'Write a search term and hit search button'
-                                             }
-                                        />
-                                   </Stack>
-
-                                   <Stack spacing={1}>
-                                        <label htmlFor="searchBy">
-                                             Search by:
-                                        </label>
-                                        <Field
-                                             className="select-custom"
-                                             id="searchBy"
-                                             as="select"
-                                             name="searchBy"
-                                        >
-                                             <option value="idn">IDN</option>
-                                             <option value="name">
-                                                  First name
-                                             </option>
-                                             <option value="middleName">
-                                                  Middle name
-                                             </option>
-                                             <option value="lastName">
-                                                  Last name
-                                             </option>
-                                             <option value="gender">
-                                                  Gender
-                                             </option>
-                                        </Field>
-                                   </Stack>
-
-                                   <Button
-                                        size="small"
-                                        variant="outlined"
-                                        type="submit"
-                                        sx={{ height: '30px' }}
-                                   >
-                                        Search
-                                   </Button>
-                              </Stack>
-                         </Form>
-                    )}
-               </Formik>
-          </>
+          <input
+               className="input-custom search"
+               placeholder="Write a search term"
+               type="search"
+               onChange={(event) =>
+                    debouncer(() => handleChange(event.target.value), 250)
+               }
+          />
      );
 }
