@@ -13,33 +13,39 @@ export default function TableRows({ slicedData }) {
 
      return (
           <TableBody>
-               {slicedData.map((person) => (
-                    <TableRow key={`${person.idn}${person.name}`}>
-                         <TableCell>{person.idn}</TableCell>
-                         <TableCell>{`${person.name} ${person.middleName} ${person.lastName}`}</TableCell>
-                         <TableCell>{person.gender}</TableCell>
-                         <TableCell>
-                              <Button
-                                   size="small"
-                                   variant="outlined"
-                                   sx={{ margin: '0 0.5rem' }}
-                                   onClick={() =>
-                                        navigate(`edit/${person.idn}`)
-                                   }
-                              >
-                                   Edit
-                              </Button>
-                              <Button
-                                   size="small"
-                                   variant="outlined"
-                                   sx={{ margin: '0 0.5rem' }}
-                                   onClick={() => handleDelete(person.idn)}
-                              >
-                                   Delete
-                              </Button>
-                         </TableCell>
+               {slicedData.length === 0 ? (
+                    <TableRow>
+                         <TableCell>No students found</TableCell>
                     </TableRow>
-               ))}
+               ) : (
+                    slicedData.map((person) => (
+                         <TableRow key={`${person.idn}${person.name}`}>
+                              <TableCell>{person.idn}</TableCell>
+                              <TableCell>{`${person.name} ${person.middleName} ${person.lastName}`}</TableCell>
+                              <TableCell>{person.gender}</TableCell>
+                              <TableCell>
+                                   <Button
+                                        size="small"
+                                        variant="outlined"
+                                        sx={{ margin: '0 0.5rem' }}
+                                        onClick={() =>
+                                             navigate(`edit/${person.idn}`)
+                                        }
+                                   >
+                                        Edit
+                                   </Button>
+                                   <Button
+                                        size="small"
+                                        variant="outlined"
+                                        sx={{ margin: '0 0.5rem' }}
+                                        onClick={() => handleDelete(person.idn)}
+                                   >
+                                        Delete
+                                   </Button>
+                              </TableCell>
+                         </TableRow>
+                    ))
+               )}
           </TableBody>
      );
 }

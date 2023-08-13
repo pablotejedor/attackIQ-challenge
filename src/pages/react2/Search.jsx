@@ -28,7 +28,7 @@ export default function Search() {
                placeholder="Write a search term"
                type="search"
                onChange={(event) =>
-                    debouncer(() => handleChange(event.target.value), 500)
+                    debouncer(() => handleChange(event.target.value), 250)
                }
           />
      );
